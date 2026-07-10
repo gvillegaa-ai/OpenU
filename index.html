@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma de Gestión y Monitoreo Ambiental OpenAQ</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="navbar-left">
+            <i class="fa-solid fa-bars menu-toggle"></i>
+            <h1>Plataforma de Gestión y Monitoreo Ambiental OpenAQ (Vue.js/React)</h1>
+        </div>
+        <div class="navbar-right">
+            <div class="notification">
+                <i class="fa-solid fa-bell"></i>
+                <span class="badge">1</span>
+            </div>
+            <i class="fa-solid fa-circle-user profile-icon"></i>
+        </div>
+    </header>
+
+    <div class="app-container">
+        
+        <aside class="sidebar">
+            <nav>
+                <ul>
+                    <li class="active"><a href="#"><i class="fa-solid fa-table-columns"></i> Dashboard</a></li>
+                    <li><a href="#"><i class="fa-solid fa-chart-line"></i> Gráfico en línea</a></li>
+                    <li><a href="#"><i class="fa-solid fa-address-card"></i> Tarjetas del los</a></li>
+                    <li><a href="#"><i class="fa-solid fa-chart-bar"></i> Valores actuales</a></li>
+                    <li><a href="#"><i class="fa-solid fa-table"></i> Tablas de datos</a></li>
+                    <li><a href="#"><i class="fa-solid fa-triangle-exclamation"></i> Alertas Activas</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            
+            <section class="kpi-container">
+                <div class="card">
+                    <h3>Total de Dispositivos (Wokwi Sim.)</h3>
+                    <p class="number value-blue">145</p>
+                </div>
+                <div class="card">
+                    <h3>Promedio Global del Aire <i class="fa-solid fa-circle-info"></i></h3>
+                    <p class="number value-green">52 <span class="unit">índice</span></p>
+                </div>
+                <div class="card">
+                    <h3>Alertas Activas (Ref: &lt;&gt;)</h3>
+                    <p class="number value-red"><i class="fa-solid fa-triangle-exclamation"></i> 0</p>
+                </div>
+            </section>
+
+            <section class="map-section">
+                <div id="map"></div>
+            </section>
+
+            <section class="table-section">
+                <div class="table-header">
+                    <h2>TABLA DE DISPOSITIVOS IoT (WOKWI)</h2>
+                    <div class="table-actions">
+                        <input type="text" placeholder="Filtra...">
+                        <button class="btn-filter"><i class="fa-solid fa-filter"></i></button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Device ID <i class="fa-solid fa-sort-up"></i></th>
+                                <th>Ubicación <i class="fa-solid fa-filter"></i></th>
+                                <th>Sensor <i class="fa-solid fa-filter"></i></th>
+                                <th>Última Transmisión (Ref: &lt;&gt;)</th>
+                                <th>Estado <i class="fa-solid fa-filter"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>WOKWI_ESP32_01</td>
+                                <td>Quito, Ecuador</td>
+                                <td>DHT22</td>
+                                <td>21/07/2023 10:32:11</td>
+                                <td><span class="status online">● Ao vivo</span></td>
+                            </tr>
+                            <tr>
+                                <td>WOKWI_ESP32_02</td>
+                                <td>Quito, Ecuador</td>
+                                <td>DHT22</td>
+                                <td>21/07/2023 11:32:15</td>
+                                <td><span class="status online">● Ao vivo</span></td>
+                            </tr>
+                            <tr>
+                                <td>WOKWI_ESP32_03</td>
+                                <td>Quito, Ecuador</td>
+                                <td>DHT22</td>
+                                <td>21/07/2023 11:32:33</td>
+                                <td><span class="status online">● Ao vivo</span></td>
+                            </tr>
+                            <tr>
+                                <td>WOKWI_ESP32_04</td>
+                                <td>Quito, Ecuador</td>
+                                <td>DHT22</td>
+                                <td>21/07/2023 11:32:37</td>
+                                <td><span class="status online">● Ao vivo</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <footer class="table-footer">
+                    Powered by OpenAQ Data and Wokwi Virtual Devices (see architecture diagram)
+                </footer>
+            </section>
+        </main>
+
+        <aside class="right-sidebar">
+            <div class="sidebar-right-header">
+                <h2>DETALLES DE LA UBICACIÓN</h2>
+                <i class="fa-solid fa-xmark close-btn"></i>
+            </div>
+            
+            <div class="details-content">
+                <div class="detail-group">
+                    <label>UBICACIÓN:</label>
+                    <p id="detail-location">Quito, Ecuador<br><span class="subtext" id="detail-subtext">Simulación Wokwi (Ref: &lt;&gt;)</span></p>
+                </div>
+                
+                <div class="detail-group">
+                    <label>PROVEEDOR:</label>
+                    <p id="detail-provider">Red Nacional de Aire</p>
+                </div>
+
+                <div class="detail-group">
+                    <label>TIPO DE ESTACIÓN:</label>
+                    <p id="detail-station-type">Simulación Wokwi (Ref: &lt;&gt;)</p>
+                </div>
+
+                <div class="detail-group">
+                    <label>SENSORES DISPONIBLES:</label>
+                    <ul id="detail-sensors">
+                        <li>Temperatura (DHT22)</li>
+                        <li>Humedad (DHT22)</li>
+                        <li>Calidad del Aire (Multi)</li>
+                    </ul>
+                </div>
+
+                <div class="charts-section">
+                    <h3>GRÁFICOS RESUMIDOS (Histórico 24h):</h3>
+                    
+                    <div class="chart-box">
+                        <h4>Temperatura (DHT22)</h4>
+                        <div class="mock-chart bar-chart"></div>
+                    </div>
+
+                    <div class="chart-box">
+                        <h4>Humedad (DHT22)</h4>
+                        <div class="mock-chart line-chart"></div>
+                    </div>
+
+                    <div class="chart-box">
+                        <h4>Calidad del Aire (Multi)</h4>
+                        <div class="mock-chart bar-chart-colors"></div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <script>
+    // =========================================================
+    // DATOS DE LOS DISPOSITIVOS / ESTACIONES (Simulación Wokwi)
+    // =========================================================
+    const stations = [
+        {
+            id: "quito",
+            name: "Quito, Ecuador",
+            lat: -0.1807,
+            lng: -78.4678,
+            highlight: true,
+            provider: "Red Nacional de Aire",
+            stationType: "Simulación Wokwi (Ref: &lt;&gt;)",
+            subtext: "Simulación Wokwi (Ref: &lt;&gt;) — Estación principal",
+            sensors: ["Temperatura (DHT22)", "Humedad (DHT22)", "Calidad del Aire (Multi)"],
+            devices: ["WOKWI_ESP32_01", "WOKWI_ESP32_02", "WOKWI_ESP32_03", "WOKWI_ESP32_04"]
+        },
+        {
+            id: "ny",
+            name: "Nueva York, EE.UU.",
+            lat: 40.7128,
+            lng: -74.0060,
+            provider: "OpenAQ Network US",
+            stationType: "Estación de referencia",
+            subtext: "Nodo secundario de monitoreo",
+            sensors: ["PM2.5", "Calidad del Aire (Multi)"],
+            devices: ["OAQ_US_NY_11", "OAQ_US_NY_12"]
+        },
+        {
+            id: "toronto",
+            name: "Toronto, Canadá",
+            lat: 43.6532,
+            lng: -79.3832,
+            provider: "Environment Canada Feed",
+            stationType: "Estación de referencia",
+            subtext: "Nodo secundario de monitoreo",
+            sensors: ["Temperatura", "Calidad del Aire (Multi)"],
+            devices: ["OAQ_CA_TOR_04"]
+        },
+        {
+            id: "mexico",
+            name: "Ciudad de México, México",
+            lat: 19.4326,
+            lng: -99.1332,
+            provider: "Red Automática de Monitoreo",
+            stationType: "Estación de referencia",
+            subtext: "Nodo secundario de monitoreo",
+            sensors: ["PM10", "Calidad del Aire (Multi)"],
+            devices: ["OAQ_MX_CDMX_07"]
+        },
+        {
+            id: "bogota",
+            name: "Bogotá, Colombia",
+            lat: 4.7110,
+            lng: -74.0721,
+            provider: "Red de Monitoreo de Bogotá",
+            stationType: "Estación de referencia",
+            subtext: "Nodo secundario de monitoreo",
+            sensors: ["Temperatura", "Humedad"],
+            devices: ["OAQ_CO_BOG_02"]
+        },
+        {
+            id: "lisboa",
+            name: "Lisboa, Portugal",
+            lat: 38.7223,
+            lng: -9.1393,
+            provider: "OpenAQ Europa",
+            stationType: "Estación de referencia",
+            subtext: "Nodo secundario de monitoreo",
+            sensors: ["Calidad del Aire (Multi)"],
+            devices: ["OAQ_PT_LIS_09"]
+        },
+        {
+            id: "madrid",
+            name: "Madrid, España",
+            lat: 40.4168,
+            lng: -3.7038,
+            provider: "OpenAQ Europa",
+            stationType: "Estación de referencia",
+            subtext: "Nodo secundario de monitoreo",
+            sensors: ["Calidad del Aire (Multi)", "PM2.5"],
+            devices: ["OAQ_ES_MAD_03"]
+        },
+        {
+            id: "moscu",
+            name: "Moscú, Rusia",
+            lat: 55.7558,
+            lng: 37.6173,
+            provider: "Red Euroasiática",
+            stationType: "Estación de referencia",
+            subtext: "Nodo secundario de monitoreo",
+            sensors: ["Temperatura", "Calidad del Aire (Multi)"],
+            devices: ["OAQ_RU_MOW_01"]
+        },
+        {
+            id: "riad",
+            name: "Riad, Arabia Saudita",
+            lat: 24.7136,
+            lng: 46.6753,
+            provider: "Red de Monitoreo de Oriente Medio",
+            stationType: "Estación de referencia",
+            subtext: "Nodo secundario de monitoreo",
+            sensors: ["Calidad del Aire (Multi)"],
+            devices: ["OAQ_SA_RUH_05"]
+        }
+    ];
+
+    // =========================================================
+    // INICIALIZACIÓN DEL MAPA
+    // =========================================================
+    const map = L.map('map', {
+        worldCopyJump: true,
+        zoomControl: true
+    }).setView([15, -30], 2);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    L.control.zoom({ position: 'bottomright' }).addTo(map);
+
+    function buildIcon(highlight) {
+        return L.divIcon({
+            className: 'custom-marker',
+            html: `<div class="marker-pin ${highlight ? 'marker-pin-active' : ''}"></div>`,
+            iconSize: [22, 22],
+            iconAnchor: [11, 11],
+            popupAnchor: [0, -10]
+        });
+    }
+
+    function updateDetailsPanel(station) {
+        document.getElementById('detail-location').innerHTML =
+            `${station.name}<br><span class="subtext" id="detail-subtext">${station.subtext}</span>`;
+        document.getElementById('detail-provider').textContent = station.provider;
+        document.getElementById('detail-station-type').innerHTML = station.stationType;
+        document.getElementById('detail-sensors').innerHTML =
+            station.sensors.map(s => `<li>${s}</li>`).join('');
+    }
+
+    stations.forEach(station => {
+        const marker = L.marker([station.lat, station.lng], {
+            icon: buildIcon(station.highlight)
+        }).addTo(map);
+
+        const popupHtml = `
+            <div class="map-popup">
+                <strong>${station.name}</strong>
+                <span class="popup-devices">${station.devices.length} dispositivo(s): ${station.devices.join(', ')}</span>
+            </div>
+        `;
+        marker.bindPopup(popupHtml);
+
+        marker.on('click', () => updateDetailsPanel(station));
+    });
+
+    // Abre el panel de detalles con la estación principal (Quito) al cargar
+    updateDetailsPanel(stations[0]);
+    </script>
+</body>
+</html>
