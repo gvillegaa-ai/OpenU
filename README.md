@@ -40,11 +40,3 @@ Para garantizar una carga ultra rápida, semántica limpia y un consumo mínimo 
 *   **FontAwesome (CDN):** Tipografía e iconos vectoriales de control para el dashboard.
 
 ---
-
-## 📂 Estructura del Repositorio
-
-```text
-📁 OpenU
- ┣ 📄 index.html   # Estructura e interfaz principal del Dashboard ambiental.
- ┣ 📄 style.css    # Hojas de estilo, grids de distribución, colores y efectos CSS.
- ┗ 📄 README.md    # Manual de instrucciones y documentación del proyecto.
