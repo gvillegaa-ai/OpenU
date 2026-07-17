@@ -1,32 +1,50 @@
 # 🌍 Plataforma de Gestión y Monitoreo Ambiental (OpenAQ & Wokwi)
 
-Este proyecto consiste en una interfaz de usuario interactiva (**Dashboard**) diseñada para la gestión, visualización y monitoreo de la calidad del aire y variables climatológicas. Combina datos de la API pública de **OpenAQ** con simulaciones virtuales de dispositivos IoT (microcontroladores **ESP32** con sensores DHT22) configurados en el entorno de **Wokwi** para la ciudad de Quito, Ecuador.
+Este proyecto consiste en una interfaz web interactiva de alto rendimiento (Dashboard) para la gestión, visualización y monitoreo de la calidad del aire y variables meteorológicas. Combina la estructura de la base de datos global de **OpenAQ** con simulaciones virtuales de dispositivos IoT (microcontroladores **ESP32** con sensores DHT22) configurados en el entorno de **Wokwi** para la ciudad de Quito, Ecuador.
 
 ---
 
-## 🚀 Características Principales
+## 🚀 Enlace del Proyecto en Producción
 
-*   **Panel de Control Inteligente (KPIs):** Visualización del total de dispositivos virtuales (145), el promedio global del índice de calidad del aire (52) y un contador dinámico de alertas activas (0).
-*   **Geolocalización Interactiva:** Un mapa intuitivo integrado que marca la ubicación exacta del sensor principal activo en Quito, Ecuador.
-*   **Tabla de Monitoreo IoT:** Listado en tiempo real con el estado de transmisión de los dispositivos virtuales de Wokwi (`WOKWI_ESP32_01` al `04`), detallando el tipo de sensor, fecha, hora de transmisión y estado de conexión activo (*"Ao vivo"*).
-*   **Ficha Técnica y Estadísticas:** Panel derecho que desglosa los sensores disponibles y muestra gráficos visuales de comportamiento histórico para las variables de Temperatura, Humedad y Calidad del Aire.
+La plataforma se encuentra completamente funcional, desplegada y disponible de manera pública a través de **GitHub Pages**:
 
----
-
-## 🛠️ Tecnologías Utilizadas
-
-El desarrollo de este panel de control se ha realizado de manera nativa utilizando estándares web tradicionales, garantizando una carga rápida y un excelente rendimiento:
-
-*   **HTML5:** Estructuración semántica de todo el contenido.
-*   **CSS3:** Maquetación responsiva mediante Flexbox y CSS Grid, diseño de barras de datos personalizadas y transiciones interactivas.
-*   **FontAwesome:** Biblioteca de iconos vectoriales para mejorar la estética visual.
+🔗 **[Visitar Plataforma de Monitoreo Ambiental](https://gvillegaa-ai.github.io/OpenU/)**
 
 ---
 
-## 💻 ¿Cómo ejecutar este proyecto localmente?
+## 🛠️ Características del Dashboard
 
-No necesitas instalar servidores, dependencias pesadas ni configurar bases de datos para probar la interfaz. Sigue estos pasos:
+La aplicación está diseñada en un formato de tres columnas estructurado con **HTML5** y **CSS3** nativo (sin frameworks ni librerías de JS externas):
 
-1. **Clona o descarga este repositorio:**
-   ```bash
-   git clone [https://github.com/tu-usuario/nombre-de-tu-repositorio.git](https://github.com/tu-usuario/nombre-de-tu-repositorio.git)
+*   **Panel de Navegación Lateral (Izquierda):** Menú estructurado que permite la simulación de acceso a las distintas vistas del sistema (Dashboard, Gráfico en línea, Tarjetas de los sensores, Valores actuales, Tablas de datos y Alertas Activas).
+*   **Sección Central de Monitoreo:**
+    *   **Indicadores Clave (KPIs):** Resumen consolidado del sistema en tiempo real mostrando:
+        *   `TOTAL DE DISPOSITIVOS`: **145** (Wokwi Sim.).
+        *   `PROMEDIO GLOBAL DEL AIRE`: **52 índice** (Rango saludable).
+        *   `ALERTAS ACTIVAS`: **0** alertas del sistema en curso.
+    *   **Mapa de Ubicaciones:** Visualizador que posiciona geográficamente los sensores a nivel global, destacando en rojo la estación principal ubicada en Quito, Ecuador.
+    *   **Tabla de Dispositivos IoT (Wokwi):** Monitoreo detallado de los sensores activos (`WOKWI_ESP32_01` al `04`), su última transmisión y su estado de conexión dinámico marcado en verde como **"Ao vivo"**.
+*   **Ficha Técnica de la Ubicación (Derecha):** Desglose detallado del proveedor de datos (Red Nacional de Aire), tipo de estación virtual y gráficos simulados para variables históricas de 24 horas:
+    *   Temperatura (DHT22)
+    *   Humedad (DHT22)
+    *   Calidad del Aire (Multi - Barra cromática de riesgo por CSS)
+
+---
+
+## ⚡ Tecnologías Implementadas
+
+Para garantizar una carga ultra rápida, semántica limpia y un consumo mínimo de recursos, el desarrollo se ejecutó con estándares web puros:
+
+*   **HTML5:** Estructuración semántica de componentes, contenedores y tablas.
+*   **CSS3:** Maquetación moderna utilizando **CSS Flexbox** y **CSS Grid** para la alineación del diseño responsivo tricolumna, transiciones fluidas de interacción (`:hover`) y degradados dinámicos.
+*   **FontAwesome (CDN):** Tipografía e iconos vectoriales de control para el dashboard.
+
+---
+
+## 📂 Estructura del Repositorio
+
+```text
+📁 OpenU
+ ┣ 📄 index.html   # Estructura e interfaz principal del Dashboard ambiental.
+ ┣ 📄 style.css    # Hojas de estilo, grids de distribución, colores y efectos CSS.
+ ┗ 📄 README.md    # Manual de instrucciones y documentación del proyecto.
